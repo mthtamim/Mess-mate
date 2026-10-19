@@ -1,0 +1,55 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract project bundle
+        run: |
+          cat project.tar.gz.b64.part_* | base64 -d > /tmp/project.tar.gz
+          tar xzf /tmp/project.tar.gz
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+
+      - name: Add Android platform
+        run: |
+          npx cap add android
+          cp config/google-services.json android/app/google-services.json
+
+      - run: npx cap sync android
+      - run: npx -y @capacitor/assets generate --android --iconBackgroundColor '#0f766e' --splashBackgroundColor '#0f766e'
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: android-actions/setup-android@v3
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.14.3
+
+      - name: Build APK
+        run: |
+          cd android
+          gradle assembleDebug --no-daemon
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: messmate-debug-apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
