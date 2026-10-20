@@ -18,7 +18,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - run: npm ci
@@ -26,8 +26,8 @@ jobs:
 
       - name: Add Android platform
         run: |
-          npx cap add android
-          cp config/google-services.json android/app/google-services.json
+          if [ ! -d android ]; then npx cap add android; fi
+          cp config/google-services.json android/app/google-services.json || echo "config/google-services.json missing, continuing without native Firebase config"
 
       - run: npx cap sync android
       - run: npx -y @capacitor/assets generate --android --iconBackgroundColor '#0f766e' --splashBackgroundColor '#0f766e'
