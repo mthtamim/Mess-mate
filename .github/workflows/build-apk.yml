@@ -30,6 +30,28 @@ jobs:
           cp config/google-services.json android/app/google-services.json || echo "config/google-services.json missing, continuing without native Firebase config"
 
       - run: npx cap sync android
+
+      - name: Set app version from package.json
+        run: |
+          node <<'NODEEOF'
+          const fs = require('fs');
+          const v = require('./package.json').version;
+          const parts = v.split('.').map(Number);
+          const vc = (parts[0] || 0) * 10000 + (parts[1] || 0) * 100 + (parts[2] || 0);
+          const p = 'android/app/build.gradle';
+          let s = fs.readFileSync(p, 'utf8');
+          if (!/versionCode\s+\d+/.test(s)) { console.error('FAIL: versionCode line not found in ' + p); process.exit(1); }
+          if (!/versionName\s+"[^"]*"/.test(s)) { console.error('FAIL: versionName line not found in ' + p); process.exit(1); }
+          s = s.replace(/versionCode\s+\d+/, 'versionCode ' + vc);
+          s = s.replace(/versionName\s+"[^"]*"/, 'versionName "' + v + '"');
+          fs.writeFileSync(p, s);
+          console.log('Stamped ' + p + ' -> versionCode ' + vc + ', versionName ' + v);
+          NODEEOF
+          echo "--- android/app/build.gradle version lines after stamping ---"
+          grep -E "versionCode|versionName" android/app/build.gradle
+          VN=$(node -p "require('./package.json').version")
+          grep -q "versionName \"${VN}\"" android/app/build.gradle || { echo "FAIL: version stamp did not land (expected versionName ${VN})"; exit 1; }
+
       - run: npx -y @capacitor/assets generate --android --iconBackgroundColor '#0f766e' --splashBackgroundColor '#0f766e'
 
       - uses: actions/setup-java@v4
