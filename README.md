@@ -7,7 +7,7 @@
 **🍛 Your Ultimate Mess Manager**
 মেসের মিল, বাজার আর মাসের হিসাব — সব এক অ্যাপে।
 
-![Version](https://img.shields.io/badge/Version-1.6.0-059669)
+![Version](https://img.shields.io/badge/Version-1.9.1-059669)
 ![Platform](https://img.shields.io/badge/Platform-Android-3DDC84?logo=android&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
 ![Firebase](https://img.shields.io/badge/Firebase-Auth%20%2B%20Firestore-FFCA28?logo=firebase&logoColor=black)
@@ -32,7 +32,7 @@
 ## 📲 ইনস্টল (Install)
 
 1. [Releases পেজ](https://github.com/mthtamim/Mess-mate/releases) থেকে সর্বশেষ APK ডাউনলোড করুন।
-2. APK-টি ইনস্টল করুন (পুরনো সংস্করণের ওপরেই আপডেট বসবে — আনইনস্টল লাগবে না, লগইন ও ডেটা ঠিক থাকবে)।
+2. আগের সংস্করণ থাকলে সেটি আগে **আনইনস্টল** করুন, তারপর APK-টি ইনস্টল করুন (আনইনস্টল ছাড়া আপডেট বসবে না)। আনইনস্টল করলে লগআউট হয়ে যাবেন — আবার লগইন করলেই সব ডেটা ফিরে পাবেন, কারণ সব তথ্য ক্লাউডে থাকে।
 3. ইমেইল বা Google দিয়ে লগইন করুন, আর নোটিফিকেশনের অনুমতি (Allow) দিয়ে দিন।
 
 ## 🛠️ প্রযুক্তি (Tech Stack)
@@ -57,7 +57,9 @@
 | 1.4 | মিল-অফের সময় অ্যাডমিনের হাতে + একাধিক রসিদের ছবি |
 | 1.5 | পুশ নোটিফিকেশন + নোটিফিকেশন সেন্টার |
 | 1.6 | নোটিফিকেশন সময়সূচি + মাল্টি-টার্গেট বাজার বদলি + নতুন লোগো |
-| 1.7 | হোম-স্ক্রিন widget (বাজার ডিউটি + আমার হিসাব) — 🚧 আসছে |
+| 1.7 | হোম-স্ক্রিন widget (বাজার ডিউটি + আমার হিসাব) |
+| 1.8 | ইনভাইটে ব্লক সিলেকশন + strict ব্লক-ভিত্তিক খরচের হিসাব |
+| 1.9.1 | মিল-অফ অনুরোধ→ম্যানেজার অনুমোদন + মিল-কাউন্ট পুশ + ট্যাপ-কল + নোটিফিকেশন ক্র্যাশ হটফিক্স — বর্তমান সংস্করণ ✅ |
 
 ## 👤 তৈরি (Author)
 
